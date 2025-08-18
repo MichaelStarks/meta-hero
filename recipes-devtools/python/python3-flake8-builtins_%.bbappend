@@ -1,0 +1,2 @@
+
+FILES:${PN} += "${PYTHON_SITEPACKAGES_DIR}/*"
