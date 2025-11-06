@@ -17,6 +17,12 @@ CORE_IMAGE_EXTRA_INSTALL += "packagegroup-core-ssh-openssh foonathan-memory-dev 
 
 RDEPENDS:${PN} += "git pkgconfig"
 
+# Ensure the UART is enabled
+RPI_EXTRA_CONFIG += "enable_uart=1"
+
+RPI_EXTRA_CONFIG += "dtoverlay=disable-bt"
+DISTRO_FEATURES:remove = "bluetooth"
+
 do_create_spdx[noexec] = "1"
 
 FILES:${PN}-dev += "${libdir}/libfoonathan_memory-*.a"
@@ -150,3 +156,8 @@ TOOLCHAIN_HOST_TASK += " \
     nativesdk-ament-package \
     nativesdk-python3-numpy \
 "
+
+# do_install()
+# {
+#     install -
+# }
