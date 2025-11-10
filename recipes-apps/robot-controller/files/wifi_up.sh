@@ -15,9 +15,9 @@ LOG_FILE="/var/log/wifi_up.log"
 if [ -f "$CONFIG_FILE" ]; then
     . "$CONFIG_FILE"
 else
-    IP_ADDR="10.0.0.132"
+    IP_ADDR="192.168.1.132"
     NETMASK="24"
-    GATEWAY="10.0.0.1"
+    GATEWAY="192.168.1.1"
 fi
 
 case "$1" in

@@ -8,6 +8,19 @@ ROS_DISTRO="jazzy"
 inherit ros_distro_${ROS_DISTRO}
 inherit ${ROS_DISTRO_TYPE}_image
 
+ROOTFS_POSTPROCESS_COMMAND += "set_hostname;"
+
+set_hostname() {
+    # Set /etc/hostname
+    echo "swarmbot" > ${IMAGE_ROOTFS}/etc/hostname
+
+    # Ensure /etc/hosts is consistent
+    sed -i "s/127\.0\.1\.1.*/127.0.1.1 swarmbot/" ${IMAGE_ROOTFS}/etc/hosts
+
+    # Optional: remove any old systemd machine-id to prevent conflicts
+    rm -f ${IMAGE_ROOTFS}/etc/machine-id
+}
+
 IMAGE_INSTALL:append = " \
     ros-core \
     python3-numpy \
@@ -16,12 +29,6 @@ IMAGE_INSTALL:append = " \
 CORE_IMAGE_EXTRA_INSTALL += "packagegroup-core-ssh-openssh foonathan-memory-dev i2cdev i2c-tools git robot-controller"
 
 RDEPENDS:${PN} += "git pkgconfig"
-
-# Ensure the UART is enabled
-RPI_EXTRA_CONFIG += "enable_uart=1"
-
-RPI_EXTRA_CONFIG += "dtoverlay=disable-bt"
-DISTRO_FEATURES:remove = "bluetooth"
 
 do_create_spdx[noexec] = "1"
 
@@ -155,6 +162,7 @@ TOOLCHAIN_HOST_TASK += " \
     nativesdk-python3-empy \
     nativesdk-ament-package \
     nativesdk-python3-numpy \
+    nativesdk-make \
 "
 
 # do_install()

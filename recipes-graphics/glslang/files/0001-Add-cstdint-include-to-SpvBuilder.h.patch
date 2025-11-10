@@ -1,0 +1,20 @@
+From: Michael Starks <starksmichael224.com>
+Date: Sat, 09 Nov 2025 10:00:00 -0700
+Subject: [PATCH] Add <cstdint> include to SPIRV/SpvBuilder.h
+
+Upstream-Status: Pending
+---
+ SPIRV/SpvBuilder.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --color -Naur /home/mstarks/Documents/Hero/poky/build/tmp/work/x86_64-linux/glslang-native/1.3.275.0/git/SPIRV/SpvBuilder.h git/SPIRV/SpvBuilder.h
+--- /home/mstarks/Documents/Hero/poky/build/tmp/work/x86_64-linux/glslang-native/1.3.275.0/git/SPIRV/SpvBuilder.h	2025-11-09 09:42:24.075183782 -0700
++++ git/SPIRV/SpvBuilder.h	2025-11-09 09:43:57.337764410 -0700
+@@ -63,6 +63,7 @@
+ #include <stack>
+ #include <unordered_map>
+ #include <map>
++#include <cstdint>
+ 
+ namespace spv {
+ 

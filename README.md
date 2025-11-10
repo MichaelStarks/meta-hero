@@ -27,3 +27,8 @@ bitbake swarm-robot-jazzy
 bitbake -c populate_sdk swarm-robot-jazzy && ./tmp/deploy/sdk/poky-glibc-x86_64-swarm-robot-jazzy-jazzy-cortexa53-raspberrypi0-2w-64-toolchain-5.0.11.sh -d /home/mstarks/yocto_sdks/pi-zero -y
 
 
+
+# Dev Notes
+Start up script needs to set ROBOTID and COLCON_CURRENT_PREFIX. source ros and setup
+
+
