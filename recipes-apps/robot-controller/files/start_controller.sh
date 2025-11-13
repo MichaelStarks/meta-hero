@@ -45,12 +45,18 @@ start_controller() {
 
     echo "$(date): Starting controller loop..." >> "$LOG_FILE"
 
-    while true; do
-        echo "$(date): Launching robot_controller..." >> "$LOG_FILE"
-        ros2 launch /home/root/robot_controller.launch.py >> "$LOG_FILE" 2>&1
-        echo "$(date): Robot controller exited — restarting in 5s..." >> "$LOG_FILE"
-        sleep 5
-    done &
+    (
+        while true; do
+            echo "$(date): Launching robot_controller..." >> "$LOG_FILE"
+            ros2 launch /home/root/robot_controller.launch.py >> "$LOG_FILE" 2>&1
+            echo "$(date): Robot controller exited — restarting in 5s..." >> "$LOG_FILE"
+            sleep 5
+        done
+    ) &
+
+    LOOP_PID=$!
+    echo "$LOOP_PID" > /var/run/start_controller.pid
+    echo "$(date): Controller loop started with PID $LOOP_PID" >> "$LOG_FILE"
 }
 
 stop_controller() {
